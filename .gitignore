@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+backend/venv/
+.venv/
+env/
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache/
+.pytest_cache/
+
+# Large Model Files (ML Models)
+models/*.pkl
+models/*.h5
+models/*.onnx
+models/*.pt
+models/*.joblib
+
+# Datasets
+data/*.csv
+data/*.json
+data/*.parquet
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code / IDE
+.vscode/
+.idea/
+.qoder/
+.qodo/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+frontend/dist/
+frontend/build/
