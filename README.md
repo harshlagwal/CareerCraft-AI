@@ -1,6 +1,4 @@
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200&h=400" alt="CareerCraft AI Banner" width="100%" style="border-radius: 10px; margin-bottom: 20px;" />
-  
   <h1>CareerCraft AI</h1>
   <p><b>Next-Generation, Data-Driven Career Intelligence Hub</b></p>
   
