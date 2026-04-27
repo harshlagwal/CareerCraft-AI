@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles, LayoutGrid, BarChart2, Map, CheckCircle2, ShieldCheck, FileKey2, FileText, Aperture, Wand2, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LottieLibrary from 'lottie-react';
 import animationData from '../assets/ChatAi.json';
 import aiIntelligenceAnim from '../assets/ai-intelligence.json';
+import careerCraftVideo from '../assets/CareerCraft_AI.mp4';
 
 const Lottie = LottieLibrary.default || LottieLibrary;
 
@@ -117,6 +118,33 @@ const staggerContainer = {
 };
 
 export default function LandingPage() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (videoRef.current) {
+          if (entry.isIntersecting) {
+            videoRef.current.play().catch(err => console.log("Autoplay prevented:", err));
+          } else {
+            videoRef.current.pause();
+          }
+        }
+      },
+      { threshold: 0.5 } // Play when at least 50% of the video is visible
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="relative overflow-hidden pt-12 pb-24 text-on-background">
       
@@ -157,7 +185,10 @@ export default function LandingPage() {
                 Get Started
               </button>
             </Link>
-            <button className="px-6 py-3 rounded-lg bg-surface-high border border-outline-variant/30 text-white font-medium hover:bg-surface-highest transition-colors flex items-center gap-2">
+            <button 
+              onClick={() => document.getElementById('video-section').scrollIntoView({ behavior: 'smooth' })}
+              className="px-6 py-3 rounded-lg bg-surface-high border border-outline-variant/30 text-white font-medium hover:bg-surface-highest transition-colors flex items-center gap-2"
+            >
               <span className="p-1 rounded-full bg-white text-surface-lowest">
                 <Play className="w-3 h-3 fill-current" />
               </span>
@@ -225,6 +256,57 @@ export default function LandingPage() {
             </motion.div>
           ))}
         </div>
+      </motion.section>
+
+      {/* Video Section */}
+      <motion.section 
+        id="video-section"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 relative z-10"
+      >
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary/10 border border-tertiary/20 mb-4">
+            <Play className="w-3 h-3 text-tertiary" />
+            <span className="text-[10px] font-bold text-tertiary uppercase tracking-widest">Platform Walkthrough</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight mb-4">
+            Experience CareerCraft AI
+          </h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Take a deep dive into our neural ecosystem and discover why CareerCraft AI is the ultimate companion for your professional journey.
+          </p>
+        </div>
+
+        <div className="relative group rounded-3xl overflow-hidden bg-surface-lowest border border-outline-variant/20 shadow-2xl">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
+          
+          <div className="aspect-video w-full relative">
+            <video 
+              ref={videoRef}
+              src={careerCraftVideo}
+              controls
+              muted // Most browsers require muted for autoplay
+              className="w-full h-full object-cover"
+              poster="/assets/hero.png"
+            />
+          </div>
+
+          <div className="absolute bottom-8 left-8 right-8 z-20 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+            <div className="max-w-md">
+              <h3 className="text-xl font-bold text-white mb-2">The Architecture of Success</h3>
+              <p className="text-sm text-white/70">A 5-minute technical and visionary overview of our career intelligence engine.</p>
+            </div>
+            <div className="hidden md:block">
+              <Sparkles className="w-8 h-8 text-primary opacity-50" />
+            </div>
+          </div>
+        </div>
+
+        {/* Cinematic Backdrop Glow */}
+        <div className="absolute -inset-4 bg-primary/5 blur-3xl -z-10 rounded-full opacity-50" />
       </motion.section>
 
       {/* How It Works Section */}
