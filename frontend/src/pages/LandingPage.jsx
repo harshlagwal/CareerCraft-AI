@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowRight, Play, Sparkles, LayoutGrid, BarChart2, Map, CheckCircle2, ShieldCheck, FileKey2, FileText, Aperture, Wand2, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LottieLibrary from 'lottie-react';
@@ -119,6 +119,12 @@ const staggerContainer = {
 
 export default function LandingPage() {
   const videoRef = useRef(null);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -131,7 +137,7 @@ export default function LandingPage() {
           }
         }
       },
-      { threshold: 0.5 } // Play when at least 50% of the video is visible
+      { threshold: 0.5 }
     );
 
     if (videoRef.current) {
@@ -147,6 +153,11 @@ export default function LandingPage() {
 
   return (
     <div className="relative overflow-hidden pt-12 pb-24 text-on-background">
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-primary z-[60] origin-left"
+        style={{ scaleX }}
+      />
       
       {/* Background ethereal vibes */}
       <NeuralNetworkBackground />
@@ -216,6 +227,28 @@ export default function LandingPage() {
           </div>
         </motion.div>
       </motion.section>
+
+      {/* Logo Marquee Section */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="relative z-10 py-12 border-y border-white/5 mb-32 overflow-hidden bg-surface-lowest/30 backdrop-blur-sm"
+      >
+        <div className="text-center mb-8">
+          <span className="text-[10px] font-bold text-on-surface-variant/50 uppercase tracking-[0.3em]">Empowering the next generation of talent from</span>
+        </div>
+        <div className="flex animate-marquee">
+          {[
+            "Google", "Microsoft", "Meta", "Amazon", "OpenAI", "NVIDIA", "Tesla", "Adobe",
+            "Google", "Microsoft", "Meta", "Amazon", "OpenAI", "NVIDIA", "Tesla", "Adobe"
+          ].map((brand, i) => (
+            <div key={i} className="mx-12 text-2xl font-display font-black text-white/20 hover:text-white/60 transition-colors cursor-default whitespace-nowrap">
+              {brand}
+            </div>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Features Section */}
       <motion.section 
@@ -307,6 +340,55 @@ export default function LandingPage() {
 
         {/* Cinematic Backdrop Glow */}
         <div className="absolute -inset-4 bg-primary/5 blur-3xl -z-10 rounded-full opacity-50" />
+      </motion.section>
+
+      {/* Blueprint / Infographic Section */}
+      <motion.section 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 relative z-10"
+      >
+        <div className="bg-surface-lowest/50 backdrop-blur-2xl rounded-[40px] border border-white/5 p-8 md:p-16 relative overflow-hidden group">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-tertiary/10 blur-[100px] rounded-full" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6">
+                <LayoutGrid className="w-3 h-3 text-white/60" />
+                <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">System Architecture</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight mb-6">
+                The Neural <br/> blueprint
+              </h2>
+              <p className="text-on-surface-variant mb-8 leading-relaxed">
+                Our proprietary AI model orchestrates data from millions of professional trajectories to find your perfect path. This isn't just an algorithm; it's a career engine designed for the modern workforce.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="text-2xl font-bold text-white mb-1">10M+</div>
+                  <div className="text-[10px] uppercase font-bold text-on-surface-variant/60 tracking-wider">Data Points</div>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="text-2xl font-bold text-white mb-1">98%</div>
+                  <div className="text-[10px] uppercase font-bold text-on-surface-variant/60 tracking-wider">Accuracy</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative aspect-square lg:aspect-auto lg:h-[500px] rounded-3xl overflow-hidden border border-white/10 bg-black/20 group-hover:border-primary/30 transition-colors">
+              <div className="absolute inset-0 flex items-center justify-center text-white/20 font-black text-xs uppercase tracking-[0.5em] text-center px-12">
+                [ Infographic: The Architecture ]
+                {/* Replace with your image later */}
+                {/* <img src={infographicImg} className="w-full h-full object-contain" /> */}
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-tertiary/5" />
+            </div>
+          </div>
+        </div>
       </motion.section>
 
       {/* How It Works Section */}
@@ -414,8 +496,11 @@ export default function LandingPage() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          {/* Main big CTA block */}
-          <motion.div variants={fadeInUp} className="lg:col-span-2 bg-[#1b2234] rounded-2xl p-10 md:p-14 relative overflow-hidden flex flex-col justify-center min-h-[320px]">
+          <motion.div 
+            variants={fadeInUp} 
+            whileHover={{ scale: 1.02 }}
+            className="lg:col-span-2 bg-[#1b2234] rounded-2xl p-10 md:p-14 relative overflow-hidden flex flex-col justify-center min-h-[320px] border border-white/5"
+          >
             <div className="absolute right-0 top-0 w-full h-full opacity-30 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 80% 50%, var(--color-tertiary), transparent 40%)" }} />
             <div className="relative z-10 max-w-sm">
               <h2 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight mb-4 leading-tight">
@@ -425,15 +510,19 @@ export default function LandingPage() {
                 Be among the first to experience our next-generation AI career engine.
               </p>
               <Link to="/signup">
-                <button className="px-6 py-3 rounded-lg bg-primary text-surface-lowest font-bold shadow-[0_0_15px_rgba(192,193,255,0.2)] hover:bg-primary-container transition-all">
-                  Join the Beta
+                <button className="px-8 py-4 rounded-xl bg-primary text-white font-bold shadow-[0_0_25px_rgba(99,102,241,0.4)] hover:bg-primary-light hover:shadow-primary/60 transition-all transform hover:-translate-y-1">
+                  Join the Beta Now
                 </button>
               </Link>
             </div>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="bg-[#1b2234] rounded-2xl p-10 flex flex-col items-center justify-center border border-outline-variant/10 text-center">
-            <div className="text-6xl font-bold text-tertiary tracking-tighter mb-2">24/7</div>
+          <motion.div 
+            variants={fadeInUp} 
+            whileHover={{ scale: 1.02 }}
+            className="bg-[#1b2234] rounded-2xl p-10 flex flex-col items-center justify-center border border-white/5 text-center group"
+          >
+            <div className="text-6xl font-bold text-tertiary tracking-tighter mb-2 group-hover:scale-110 transition-transform">24/7</div>
             <div className="text-[10px] font-bold text-on-surface-variant tracking-[0.2em] uppercase">Market Intelligence</div>
           </motion.div>
 
