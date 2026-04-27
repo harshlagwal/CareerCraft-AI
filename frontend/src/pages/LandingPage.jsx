@@ -314,28 +314,16 @@ export default function LandingPage() {
           </p>
         </div>
 
-        <div className="relative group rounded-3xl overflow-hidden bg-surface-lowest border border-outline-variant/20 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-          
+        <div className="relative group rounded-[40px] overflow-hidden shadow-2xl bg-black">
           <div className="aspect-video w-full relative">
             <video 
               ref={videoRef}
               src={careerCraftVideo}
               controls
-              muted // Most browsers require muted for autoplay
+              muted
               className="w-full h-full object-cover"
               poster="/assets/hero.png"
             />
-          </div>
-
-          <div className="absolute bottom-8 left-8 right-8 z-20 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-            <div className="max-w-md">
-              <h3 className="text-xl font-bold text-white mb-2">The Architecture of Success</h3>
-              <p className="text-sm text-white/70">A 5-minute technical and visionary overview of our career intelligence engine.</p>
-            </div>
-            <div className="hidden md:block">
-              <Sparkles className="w-8 h-8 text-primary opacity-50" />
-            </div>
           </div>
         </div>
 
