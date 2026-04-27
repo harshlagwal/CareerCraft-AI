@@ -370,8 +370,8 @@ export default function LandingPage() {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="text-2xl font-bold text-white mb-1">10M+</div>
-                  <div className="text-[10px] uppercase font-bold text-on-surface-variant/60 tracking-wider">Data Points</div>
+                  <div className="text-2xl font-bold text-white mb-1">8000+</div>
+                  <div className="text-[10px] uppercase font-bold text-on-surface-variant/60 tracking-wider">Trained Points</div>
                 </div>
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                   <div className="text-2xl font-bold text-white mb-1">98%</div>
@@ -380,21 +380,12 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="relative aspect-square lg:aspect-auto lg:h-[600px] rounded-3xl overflow-hidden border border-white/10 bg-black/40 group-hover:border-primary/50 transition-all duration-500 shadow-2xl">
+            <div className="relative aspect-square lg:aspect-auto lg:h-[700px] rounded-3xl overflow-hidden group">
               <img 
                 src={infographicImg} 
                 alt="CareerCraft AI Architecture" 
-                className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-700" 
+                className="w-full h-full object-contain hover:scale-105 transition-transform duration-700" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              
-              {/* Overlay Badge */}
-              <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
-                <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white uppercase tracking-widest flex items-center gap-2">
-                  <Sparkles className="w-3 h-3 text-primary" />
-                  The Data Driven Path
-                </div>
-              </div>
             </div>
           </div>
         </div>
