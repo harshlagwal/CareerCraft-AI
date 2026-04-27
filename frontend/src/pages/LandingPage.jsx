@@ -153,7 +153,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="relative overflow-hidden pt-12 pb-24 text-on-background">
+    <div className="relative overflow-hidden pt-32 pb-24 text-on-background">
       {/* Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-primary z-[60] origin-left"
@@ -174,10 +174,10 @@ export default function LandingPage() {
       >
         
         {/* Hero Left Content */}
-        <motion.div variants={fadeInUp}>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-semibold text-primary uppercase tracking-[0.1em]">Next-Gen Career Intelligence</span>
+        <motion.div variants={fadeInUp} className="relative z-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-primary animate-pulse-glow" />
+            <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Next-Gen Career Intelligence</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl font-display font-bold text-white tracking-tight leading-[1.1] mb-6">
