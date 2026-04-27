@@ -6,7 +6,7 @@ import LottieLibrary from 'lottie-react';
 import animationData from '../assets/ChatAi.json';
 import aiIntelligenceAnim from '../assets/ai-intelligence.json';
 import careerCraftVideo from '../assets/CareerCraft_AI.mp4';
-import infographicImg from '../assets/AI Career Platform Overview.png';
+import infographicImg from '../assets/careercraft ai 2.png';
 
 const Lottie = LottieLibrary.default || LottieLibrary;
 
