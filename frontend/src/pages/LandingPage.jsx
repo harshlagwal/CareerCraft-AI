@@ -314,17 +314,15 @@ export default function LandingPage() {
           </p>
         </div>
 
-        <div className="relative group rounded-[40px] overflow-hidden shadow-2xl bg-black">
-          <div className="aspect-video w-full relative">
-            <video 
-              ref={videoRef}
-              src={careerCraftVideo}
-              controls
-              muted
-              className="w-full h-full object-cover"
-              poster="/assets/hero.png"
-            />
-          </div>
+        <div className="relative group rounded-[40px] overflow-hidden shadow-2xl bg-[#0c101a] border border-white/5">
+          <video 
+            ref={videoRef}
+            src={careerCraftVideo}
+            controls
+            muted
+            className="w-full h-auto block"
+            poster="/assets/hero.png"
+          />
         </div>
 
         {/* Cinematic Backdrop Glow */}
