@@ -25,7 +25,10 @@ Beyond core predictions, the Intelligence Hub offers a multi-module experience i
 ### Platform Infrastructure & Architecture
 ![CareerCraft AI Infrastructure](frontend/src/assets/careercraft%20ai%202.png)
 
-### Video Walkthrough
+### 🎥 Platform Explanation Video
+> [!IMPORTANT]
+> **[Click here to view the Explanation Video](frontend/src/assets/CareerCraft_AI.mp4)**
+
 <video src="frontend/src/assets/CareerCraft_AI.mp4" width="100%" controls>
   Your browser does not support the video tag.
 </video>
