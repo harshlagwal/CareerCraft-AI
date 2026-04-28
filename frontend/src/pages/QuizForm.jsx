@@ -1,14 +1,16 @@
-import { GraduationCap, Briefcase, User, ChevronDown, X, Lock, ArrowLeft, ArrowRight, Loader2, Info } from 'lucide-react';
+import { GraduationCap, Briefcase, User, ChevronDown, X, Lock, ArrowLeft, ArrowRight, Loader2, Info, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePrediction } from '../context/PredictionContext';
+import { useTheme } from '../context/ThemeContext';
 
 const AVAILABLE_INTERESTS = ['Analytics', 'Cloud', 'Coding', 'Design', 'Finance', 'Gaming', 'Hardware', 'Management', 'Mobile', 'Music', 'Networking', 'Reading', 'Security', 'Sports', 'Travel'];
 
 export default function QuizForm() {
   const navigate = useNavigate();
   const { setPredictionData, setIsSubmitting } = usePrediction();
+  const { theme, toggleTheme } = useTheme();
   
   // Form State
   const SPECS_BY_DEGREE = {
@@ -150,14 +152,29 @@ export default function QuizForm() {
   }
 
   return (
-    <div className="relative pt-12 pb-24 text-on-background px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="relative pt-12 pb-24 text-on-background bg-background min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-colors duration-300">
       
+      {/* Theme Toggle Button - Adjusted to top right viewport */}
+      <div className="fixed top-6 right-6 z-[100]">
+        <button 
+          onClick={toggleTheme}
+          className="p-3.5 rounded-2xl bg-surface/80 backdrop-blur-md border border-outline-variant/30 text-on-surface-variant hover:text-on-background hover:bg-surface-high transition-all shadow-xl hover:shadow-primary/20 flex items-center justify-center group"
+          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          {theme === 'dark' ? (
+            <Sun size={20} className="group-hover:rotate-45 transition-transform duration-500" />
+          ) : (
+            <Moon size={20} className="group-hover:-rotate-12 transition-transform duration-500" />
+          )}
+        </button>
+      </div>
+
       {/* Header Intro */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 mt-8">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-display font-bold text-white mb-4 tracking-tight leading-tight"
+          className="text-4xl md:text-5xl font-display font-bold text-on-background mb-4 tracking-tight leading-tight"
         >
           Design Your Future
         </motion.h1>
@@ -200,7 +217,7 @@ export default function QuizForm() {
       </div>
 
       {/* Main Form Card */}
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-[#1b2234] rounded-2xl p-8 md:p-12 shadow-2xl border border-outline-variant/10">
+      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-surface rounded-2xl p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-outline-variant/10 transition-colors duration-300">
         
         {/* Dropdowns Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -210,7 +227,7 @@ export default function QuizForm() {
               <select 
                 value={formData.degree}
                 onChange={(e) => setFormData({...formData, degree: e.target.value, specialization: ''})}
-                className="w-full appearance-none bg-surface-lowest text-white border border-outline-variant/10 rounded-xl px-5 py-4 outline-none hover:border-primary/30 transition-colors"
+                className="w-full appearance-none bg-surface-lowest text-on-background border border-outline-variant/30 rounded-xl px-5 py-4 outline-none hover:border-primary/50 focus:border-primary transition-colors"
                 required
               >
                 <option value="">Select your degree</option>
@@ -239,7 +256,7 @@ export default function QuizForm() {
               <select 
                 value={formData.specialization}
                 onChange={(e) => setFormData({...formData, specialization: e.target.value})}
-                className="w-full appearance-none bg-surface-lowest text-white border border-outline-variant/10 rounded-xl px-5 py-4 outline-none hover:border-primary/30 transition-colors"
+                className="w-full appearance-none bg-surface-lowest text-on-background border border-outline-variant/30 rounded-xl px-5 py-4 outline-none hover:border-primary/50 focus:border-primary transition-colors"
                 required
               >
                 <option value="">Select specialization</option>
@@ -270,8 +287,8 @@ export default function QuizForm() {
                 onClick={() => handleToggleInterest(interest)}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                   formData.interests.includes(interest)
-                  ? 'bg-[#9900ff] text-white shadow-[0_0_15px_rgba(153,0,255,0.4)]'
-                  : 'bg-transparent text-on-surface-variant border border-outline-variant/30 hover:text-white hover:border-outline-variant/60'
+                  ? 'bg-[var(--color-primary)] text-white shadow-[0_0_15px_rgba(99,102,241,0.4)] border border-[var(--color-primary)]'
+                  : 'bg-transparent text-on-surface-variant border border-outline-variant hover:text-on-background hover:border-primary/60'
                 }`}
               >
                 {interest}
@@ -289,11 +306,11 @@ export default function QuizForm() {
         {/* Technical Skills */}
         <div className="mb-10">
           <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-3">Technical Skills (Press Enter to add)</label>
-          <div className="w-full min-h-[60px] bg-[#0c1222] border border-outline-variant/10 rounded-xl px-4 py-3 flex flex-wrap items-center gap-3">
+          <div className="w-full min-h-[60px] bg-surface-lowest border border-outline-variant/30 rounded-xl px-4 py-3 flex flex-wrap items-center gap-3">
             {formData.skills.map((skill, idx) => (
-              <div key={idx} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-tertiary/50 bg-[#162738]/50 text-tertiary">
+              <div key={idx} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-primary/30 bg-primary/10 text-primary font-semibold">
                 <span className="text-sm font-medium">{skill}</span>
-                <button type="button" onClick={() => removeSkill(skill)} className="hover:text-white transition-colors">
+                <button type="button" onClick={() => removeSkill(skill)} className="hover:text-primary-container transition-colors">
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -304,7 +321,7 @@ export default function QuizForm() {
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={handleAddSkill}
               placeholder="Add more..." 
-              className="bg-transparent border-none outline-none text-sm text-white placeholder-on-surface-variant/50 ml-2" 
+              className="bg-transparent border-none outline-none text-sm text-on-background placeholder-on-surface-variant/50 ml-2" 
             />
           </div>
         </div>
@@ -316,9 +333,9 @@ export default function QuizForm() {
           <div>
             <div className="flex justify-between items-center mb-4">
               <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Current Marks / GPA</label>
-              <span className="font-bold text-white tracking-wide">{formData.marks}/10</span>
+              <span className="font-bold text-on-background tracking-wide">{formData.marks}/10</span>
             </div>
-            <div className="relative w-full h-1.5 bg-[#0c1222] rounded-full">
+            <div className="relative w-full h-1.5 bg-surface-highest rounded-full">
               <input 
                 type="range"
                 min="0"
@@ -340,9 +357,9 @@ export default function QuizForm() {
           </div>
 
           {/* Certifications Toggle Box */}
-          <div className="bg-[#242b3d] border border-outline-variant/10 p-5 rounded-xl flex items-center justify-between">
+          <div className="bg-surface-low border border-outline-variant/20 p-5 rounded-xl flex items-center justify-between shadow-sm">
             <div>
-              <div className="font-bold text-white text-sm mb-1">Certifications</div>
+              <div className="font-bold text-on-background text-sm mb-1">Certifications</div>
               <div className="text-xs text-on-surface-variant">Do you have active industry certs?</div>
             </div>
             <button 
@@ -360,14 +377,14 @@ export default function QuizForm() {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm">
             {error}
           </div>
         )}
 
         {/* Card Footer Actions */}
         <div className="flex items-center justify-between pt-4">
-          <button type="button" onClick={() => navigate(-1)} className="flex items-center gap-2 text-on-surface-variant hover:text-white font-medium transition-colors">
+          <button type="button" onClick={() => navigate(-1)} className="flex items-center gap-2 text-on-surface-variant hover:text-on-background font-medium transition-colors">
             <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </button>
@@ -389,16 +406,16 @@ export default function QuizForm() {
 
       {/* Security Badge */}
       <div className="mt-8 flex justify-center">
-        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1b2234] border border-outline-variant/10">
+        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline-variant/20 shadow-sm">
           <Lock className="w-3.5 h-3.5 text-tertiary" />
           <span className="text-xs font-semibold text-on-surface-variant">Your data is secured with AES-256 encryption.</span>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="mt-24 border-t border-outline-variant/10 pt-8 pb-12 flex flex-col md:flex-row justify-center items-center text-center">
+      <footer className="mt-24 border-t border-outline-variant/20 pt-8 pb-12 flex flex-col md:flex-row justify-center items-center text-center">
         <div>
-          <div className="text-sm font-logo font-black tracking-widest text-white uppercase mb-2">CareerCraft AI</div>
+          <div className="text-sm font-logo font-black tracking-widest text-on-background uppercase mb-2">CareerCraft AI</div>
           <div className="text-[10px] text-on-surface-variant uppercase">© 2026 CareerCraft AI. The Ethereal Architect Experience.</div>
         </div>
       </footer>

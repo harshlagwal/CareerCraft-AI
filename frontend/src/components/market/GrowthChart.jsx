@@ -8,14 +8,14 @@ const mockLineData = [
 
 export default function GrowthChart({ growth = "+28%", explanation }) {
   return (
-    <div className="bg-[#161b22] rounded-[24px] p-8 border border-white/5 shadow-xl space-y-8 group hover:bg-[#1c2128] transition-all h-full">
+    <div className="bg-surface rounded-[24px] p-8 border border-outline-variant/20 shadow-xl space-y-8 group hover:bg-outline-variant/5 transition-colors duration-300 h-full">
       <div className="flex justify-between items-start">
-         <h4 className="text-[9px] font-bold text-[#8b949e] uppercase tracking-[0.2em]">Annual Growth</h4>
-         <Rocket size={14} className="text-[#8b949e] group-hover:text-primary transition-colors" />
+         <h4 className="text-[9px] font-bold text-on-surface-variant uppercase tracking-[0.2em]">Annual Growth</h4>
+         <Rocket size={14} className="text-on-surface-variant group-hover:text-primary transition-colors" />
       </div>
 
       <div className="flex items-center justify-between gap-6">
-         <div className="text-5xl font-bold text-white tracking-tighter transition-transform group-hover:scale-110">
+         <div className="text-5xl font-bold text-on-background tracking-tighter transition-transform group-hover:scale-110">
             {growth}
          </div>
          <div className="h-[50px] flex-1 opacity-60">
@@ -34,7 +34,7 @@ export default function GrowthChart({ growth = "+28%", explanation }) {
          </div>
       </div>
 
-      <p className="text-[11px] text-[#8b949e] leading-relaxed italic border-l border-white/10 pl-4">
+      <p className="text-[11px] text-on-surface-variant leading-relaxed italic border-l border-outline-variant/30 pl-4">
          "{explanation || "Surging demand in generative intelligence implementation and cloud-native architecture adoption globally."}"
       </p>
     </div>

@@ -20,6 +20,18 @@ Beyond core predictions, the Intelligence Hub offers a multi-module experience i
 
 ---
 
+## 🖼️ Visual Showcase
+
+### Platform Infrastructure & Architecture
+![CareerCraft AI Infrastructure](frontend/src/assets/careercraft%20ai%202.png)
+
+### Video Walkthrough
+<video src="frontend/src/assets/CareerCraft_AI.mp4" width="100%" controls>
+  Your browser does not support the video tag.
+</video>
+
+---
+
 ## ✨ Core Features
 
 *   🧠 **Neural Career Matching**: Hierarchical ML prediction engine (Domain → Role) that analyzes user inputs to suggest optimal career trajectories with percentage-based confidence scores.

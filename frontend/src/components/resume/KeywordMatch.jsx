@@ -4,10 +4,10 @@ import { Layers, MousePointer2, FileSearch } from 'lucide-react';
 const KeywordBar = ({ label, score }) => (
   <div className="space-y-3 group cursor-default">
     <div className="flex justify-between items-end">
-       <div className="text-[11px] font-bold text-white uppercase tracking-widest group-hover:text-primary transition-colors">{label}</div>
+       <div className="text-[11px] font-bold text-on-background uppercase tracking-widest group-hover:text-primary transition-colors">{label}</div>
        <div className="text-[13px] font-bold text-primary">{score}%</div>
     </div>
-    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+    <div className="h-1.5 w-full bg-outline-variant/10 rounded-full overflow-hidden border border-outline-variant/20">
        <div className="h-full bg-primary shadow-[0_0_15px_rgba(192,193,255,0.4)] transition-all duration-1000" style={{ width: `${score}%` }} />
     </div>
   </div>
@@ -22,9 +22,9 @@ export default function KeywordMatch({ matched = [] }) {
   ];
 
   return (
-    <div className="bg-[#161b22] rounded-[32px] p-10 border border-white/5 shadow-xl space-y-10 group h-full">
+    <div className="bg-surface rounded-[32px] p-10 border border-outline-variant/20 shadow-xl space-y-10 group h-full transition-colors duration-300">
        <div className="flex justify-between items-center">
-          <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.3em] flex items-center gap-3">
+          <h4 className="text-[10px] font-bold text-on-background uppercase tracking-[0.3em] flex items-center gap-3">
              <Layers size={16} className="text-primary" /> Top Keyword Alignment
           </h4>
           <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-bold text-primary uppercase tracking-widest">
@@ -38,8 +38,8 @@ export default function KeywordMatch({ matched = [] }) {
           ))}
        </div>
 
-       <div className="pt-6 border-t border-white/5 flex justify-end">
-          <button className="flex items-center gap-2 text-[9px] font-black text-[#8b949e] hover:text-white uppercase tracking-widest transition-colors">
+       <div className="pt-6 border-t border-outline-variant/20 flex justify-end">
+          <button className="flex items-center gap-2 text-[9px] font-black text-on-surface-variant hover:text-on-background uppercase tracking-widest transition-colors">
              Full Keyword Report • Detailed Vector Mapping
           </button>
        </div>

@@ -2,14 +2,14 @@ import React from 'react';
 import { FileText, Type, BarChart4, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const QualityCard = ({ icon: Icon, title, desc, rating, status = 'success' }) => (
-  <div className="bg-[#161b22] rounded-3xl p-8 border border-white/5 shadow-xl space-y-5 transition-all hover:bg-[#1c2128]">
+  <div className="bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-xl space-y-5 transition-colors duration-300 hover:bg-outline-variant/5">
      <div className="flex justify-between items-start">
-        <Icon size={20} className={status === 'success' ? 'text-primary' : 'text-amber-400'} />
-        <div className="text-[10px] font-black text-white uppercase tracking-widest">{rating}</div>
+        <Icon size={20} className={status === 'success' ? 'text-primary' : 'text-amber-500 dark:text-amber-400'} />
+        <div className="text-[10px] font-black text-on-background uppercase tracking-widest">{rating}</div>
      </div>
      <div className="space-y-2">
-        <h5 className="text-[13px] font-bold text-white tracking-tight">{title}</h5>
-        <p className="text-[10px] text-[#8b949e] leading-relaxed opacity-80">{desc}</p>
+        <h5 className="text-[13px] font-bold text-on-background tracking-tight">{title}</h5>
+        <p className="text-[10px] text-on-surface-variant leading-relaxed opacity-80">{desc}</p>
      </div>
   </div>
 );

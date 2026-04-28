@@ -50,54 +50,53 @@ export default function History() {
     );
 
   return (
-    <div className="flex h-screen bg-[#0b1326] overflow-hidden">
+    <div className="flex h-screen bg-background transition-colors duration-300 overflow-hidden">
       {/* ✅ Same Sidebar as Dashboard */}
       <Sidebar />
 
       <div className="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar">
 
         {/* ✅ Same Header style as Dashboard */}
-        <header className="sticky top-0 z-50 h-20 px-10 flex items-center justify-between border-b border-white/5 bg-[#0b1326]">
+        <header className="sticky top-0 z-50 h-20 px-10 flex items-center justify-between border-b border-outline-variant/20 bg-background/80 backdrop-blur-md">
           <div />
 
           <div className="flex items-center gap-5">
-            {/* Search Bar */}
             <div className="relative hidden lg:block">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-on-surface-variant" />
               <input
                 type="text"
                 placeholder="Search history..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-white/5 border border-white/5 rounded-xl py-2 pl-11 pr-5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-primary/30 transition-all w-52 font-bold tracking-wider"
+                className="bg-outline-variant/10 border border-outline-variant/20 rounded-xl py-2 pl-11 pr-5 text-xs text-on-background placeholder-on-surface-variant focus:outline-none focus:border-primary/50 transition-all w-52 font-bold tracking-wider"
               />
             </div>
 
-            <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center relative cursor-pointer hover:border-white/20 transition-all">
-              <Bell size={16} className="text-white/40" />
+            <div className="w-9 h-9 rounded-xl bg-outline-variant/10 border border-outline-variant/20 flex items-center justify-center relative cursor-pointer hover:border-outline-variant/40 transition-all">
+              <Bell size={16} className="text-on-surface-variant" />
               <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-primary rounded-full" />
             </div>
 
             <div className="relative">
               <button
                 onClick={() => setProfileOpen(!profileOpen)}
-                className="flex items-center gap-3 border-l border-white/10 pl-5 group"
+                className="flex items-center gap-3 border-l border-outline-variant/20 pl-5 group"
               >
                 <div className="text-right">
-                  <div className="text-[10px] font-black text-white uppercase tracking-widest">{user?.name || 'User'}</div>
+                  <div className="text-[10px] font-black text-on-background uppercase tracking-widest">{user?.name || 'User'}</div>
                 </div>
                 <img
                   src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name}`}
-                  className="w-10 h-10 rounded-full border border-white/10 bg-surface-lowest group-hover:border-primary/40 transition-all"
+                  className="w-10 h-10 rounded-full border border-outline-variant/20 bg-surface-lowest group-hover:border-primary/40 transition-all"
                   alt="avatar"
                 />
               </button>
 
               {profileOpen && (
-                <div className="absolute top-full right-0 mt-3 w-44 bg-[#1b2234] border border-white/10 rounded-2xl shadow-2xl p-2 z-60">
+                <div className="absolute top-full right-0 mt-3 w-44 bg-surface border border-outline-variant/30 rounded-2xl shadow-2xl p-2 z-60">
                   <button
                     onClick={logout}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-white/50 hover:text-red-400 hover:bg-red-500/5 rounded-xl transition-all text-xs font-bold uppercase tracking-widest"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all text-xs font-bold uppercase tracking-widest"
                   >
                     <LogOut size={14} />
                     Logout
@@ -112,21 +111,21 @@ export default function History() {
         <main className="flex-1 p-10 lg:p-12">
           {/* Page Title */}
           <div className="mb-10">
-            <h1 className="text-3xl font-black text-white mb-2">Prediction History</h1>
-            <p className="text-sm text-[#8b949e] max-w-2xl">
+            <h1 className="text-3xl font-black text-on-background mb-2">Prediction History</h1>
+            <p className="text-sm text-on-surface-variant max-w-2xl">
               Review your career progression and all previous neural match results.
             </p>
           </div>
 
           {/* Mobile Search */}
           <div className="relative mb-6 lg:hidden">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-on-surface-variant" />
             <input
               type="text"
               placeholder="Search history..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/5 border border-white/5 rounded-xl py-3 pl-11 pr-5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-primary/30 transition-all font-bold"
+              className="w-full bg-outline-variant/10 border border-outline-variant/20 rounded-xl py-3 pl-11 pr-5 text-sm text-on-background placeholder-on-surface-variant focus:outline-none focus:border-primary/50 transition-all font-bold"
             />
           </div>
 
@@ -139,9 +138,9 @@ export default function History() {
                 { label: 'Unique Roles Found', val: new Set(journey.map((j) => j.role)).size, color: '#3b82f6' },
                 { label: 'Latest Analysis', val: journey[journey.length - 1]?.date?.split(' ')[0] || '—', color: '#a855f7' },
               ].map((stat, i) => (
-                <div key={i} className="bg-[#1b2234] rounded-2xl p-6 border border-white/5 shadow-lg">
-                  <div className="text-2xl font-black text-white mb-1">{stat.val}</div>
-                  <div className="text-[10px] font-bold text-[#8b949e] uppercase tracking-widest">{stat.label}</div>
+                <div key={i} className="bg-surface rounded-2xl p-6 border border-outline-variant/30 shadow-lg transition-colors duration-300">
+                  <div className="text-2xl font-black text-on-background mb-1">{stat.val}</div>
+                  <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">{stat.label}</div>
                   <div className="mt-3 h-1 rounded-full" style={{ background: `${stat.color}30` }}>
                     <div className="h-full rounded-full w-3/4" style={{ background: stat.color }} />
                   </div>
@@ -164,7 +163,7 @@ export default function History() {
                 return (
                   <div
                     key={item.id || idx}
-                    className="bg-[#1b2234] rounded-2xl p-7 border border-white/5 hover:border-primary/25 transition-all shadow-lg group"
+                    className="bg-surface rounded-2xl p-7 border border-outline-variant/30 hover:border-primary/40 transition-all shadow-lg group duration-300"
                   >
                     <div className="flex items-start justify-between gap-6 flex-wrap">
                       {/* Left: Role Info */}
@@ -177,7 +176,7 @@ export default function History() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 flex-wrap mb-2">
-                            <h3 className="text-xl font-black text-white">{item.role}</h3>
+                            <h3 className="text-xl font-black text-on-background">{item.role}</h3>
                             <span
                               className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"
                               style={{ background: style.bg, border: `1px solid ${style.border}`, color: style.color }}
@@ -187,7 +186,7 @@ export default function History() {
                           </div>
 
                           {/* Date */}
-                          <div className="flex items-center gap-2 text-[11px] text-[#8b949e] font-bold mb-4">
+                          <div className="flex items-center gap-2 text-[11px] text-on-surface-variant font-bold mb-4">
                             <Calendar size={12} />
                             {item.date}
                           </div>
@@ -198,13 +197,13 @@ export default function History() {
                               {skillList.slice(0, 6).map((skill, i) => (
                                 <span
                                   key={i}
-                                  className="px-3 py-1 rounded-md bg-white/5 border border-white/5 text-[11px] font-bold text-white/50"
+                                  className="px-3 py-1 rounded-md bg-outline-variant/10 border border-outline-variant/20 text-[11px] font-bold text-on-background/60"
                                 >
                                   {skill}
                                 </span>
                               ))}
                               {skillList.length > 6 && (
-                                <span className="px-3 py-1 rounded-md bg-white/5 border border-white/5 text-[11px] font-bold text-white/30">
+                                <span className="px-3 py-1 rounded-md bg-outline-variant/10 border border-outline-variant/20 text-[11px] font-bold text-on-background/40">
                                   +{skillList.length - 6} more
                                 </span>
                               )}
@@ -216,10 +215,10 @@ export default function History() {
                       {/* Right: Confidence bar + CTA */}
                       <div className="flex flex-col items-end gap-4 shrink-0">
                         <div className="text-right">
-                          <div className="text-3xl font-black text-white leading-none">{item.confidence}%</div>
-                          <div className="text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mt-1">Confidence</div>
+                          <div className="text-3xl font-black text-on-background leading-none">{item.confidence}%</div>
+                          <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mt-1">Confidence</div>
                         </div>
-                        <div className="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
+                        <div className="w-32 h-2 bg-outline-variant/20 rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full transition-all"
                             style={{ width: `${item.confidence}%`, background: style.color }}
@@ -233,12 +232,12 @@ export default function History() {
             </div>
           ) : (
             /* Empty State */
-            <div className="bg-[#1b2234] rounded-2xl p-20 border border-white/5 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
+            <div className="bg-surface rounded-2xl p-20 border border-outline-variant/30 flex flex-col items-center text-center shadow-lg transition-colors duration-300">
+              <div className="w-16 h-16 rounded-2xl bg-outline-variant/10 border border-outline-variant/20 flex items-center justify-center mb-6">
                 <Sparkles className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-black text-white mb-2">No Predictions Yet</h3>
-              <p className="text-[#8b949e] text-sm max-w-sm leading-relaxed mb-8">
+              <h3 className="text-xl font-black text-on-background mb-2">No Predictions Yet</h3>
+              <p className="text-on-surface-variant text-sm max-w-sm leading-relaxed mb-8">
                 {searchTerm
                   ? `No results found for "${searchTerm}". Try a different search.`
                   : "You haven't run any career analyses yet. Start your journey to see results here."}
@@ -255,9 +254,9 @@ export default function History() {
           )}
         </main>
 
-        <footer className="px-12 py-5 border-t border-white/5 flex items-center justify-between opacity-30 select-none">
-          <span className="text-[10px] font-logo font-bold text-[#8b949e] uppercase tracking-widest">© 2026 CareerCraft AI • Prediction History</span>
-          <span className="text-[10px] font-bold text-[#8b949e] uppercase tracking-widest">Neural Vault • Encrypted</span>
+        <footer className="px-12 py-5 border-t border-outline-variant/20 flex items-center justify-between opacity-50 select-none">
+          <span className="text-[10px] font-logo font-bold text-on-surface-variant uppercase tracking-widest">© 2026 CareerCraft AI • Prediction History</span>
+          <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Neural Vault • Encrypted</span>
         </footer>
       </div>
     </div>

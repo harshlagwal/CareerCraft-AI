@@ -12,9 +12,9 @@ class DashboardErrorBoundary extends Component {
   static getDerivedStateFromError() { return { hasError: true }; }
   render() {
     if (this.state.hasError) return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-[#0b1326] min-h-screen text-center p-10">
+      <div className="flex-1 flex flex-col items-center justify-center bg-background min-h-screen text-center p-10 transition-colors duration-300">
         <AlertCircle className="w-16 h-16 text-red-400 mb-6" />
-        <h2 className="text-2xl font-bold text-white mb-4">Something went wrong</h2>
+        <h2 className="text-2xl font-bold text-on-background mb-4">Something went wrong</h2>
         <button onClick={() => window.location.reload()} className="px-8 py-4 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest">Reload</button>
       </div>
     );
@@ -36,37 +36,37 @@ function BestMatchCard({ career, domain }) {
   const style = getConfidenceStyle(pct);
 
   return (
-    <div className="bg-[#1b2234] rounded-2xl p-8 border border-white/5 shadow-xl">
+    <div className="bg-surface rounded-2xl p-8 border border-outline-variant/30 shadow-xl transition-colors duration-300">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest" 
             style={{ background: style.bg, border: `1px solid ${style.border}`, color: style.color }}>
             Best Match
           </span>
-          <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold text-white/50 uppercase tracking-widest">
+          <span className="px-3 py-1 rounded-full bg-outline-variant/10 border border-outline-variant/30 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
             {domain || 'Tech'} Domain
           </span>
         </div>
         <div className="text-right">
-          <div className="text-5xl font-black text-white leading-none">{pct}%</div>
-          <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">Confidence</div>
+          <div className="text-5xl font-black text-on-background leading-none">{pct}%</div>
+          <div className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mt-1">Confidence</div>
         </div>
       </div>
 
-      <h2 className="text-3xl font-black text-white mb-3 leading-tight">{career.role || 'N/A'}</h2>
-      <p className="text-sm text-[#8b949e] leading-relaxed mb-6">
+      <h2 className="text-3xl font-black text-on-background mb-3 leading-tight">{career.role || 'N/A'}</h2>
+      <p className="text-sm text-on-surface-variant leading-relaxed mb-6">
         {career.description || 'Your skill profile and academic background create a strong alignment with this role.'}
       </p>
 
       {/* Progress Bar */}
       <div>
         <div className="flex justify-between items-center mb-2">
-          <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Alignment Progress</span>
+          <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Alignment Progress</span>
           <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: style.color }}>
             {pct}% Synced
           </span>
         </div>
-        <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+        <div className="h-2 w-full bg-outline-variant/20 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-1000 ease-out"
             style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${style.color}60, ${style.color})` }}
@@ -81,13 +81,13 @@ function BestMatchCard({ career, domain }) {
 function AltCareerCard({ career, onNavigate }) {
   const pct = Math.round((career.confidence || 0) * 100);
   return (
-    <div className="bg-[#1b2234] rounded-2xl p-6 border border-white/5 shadow-lg flex flex-col justify-between group hover:border-primary/30 transition-all">
+    <div className="bg-surface rounded-2xl p-6 border border-outline-variant/30 shadow-lg flex flex-col justify-between group hover:border-primary/30 transition-all">
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-black text-white leading-tight">{career.role}</h3>
-          <span className="text-2xl font-black text-white/70 ml-4 shrink-0">{pct}%</span>
+          <h3 className="text-lg font-black text-on-background leading-tight">{career.role}</h3>
+          <span className="text-2xl font-black text-on-background/70 ml-4 shrink-0">{pct}%</span>
         </div>
-        <p className="text-xs text-[#8b949e] leading-relaxed">
+        <p className="text-xs text-on-surface-variant leading-relaxed">
           {career.description || 'A strong alternative path that aligns with several of your core skills and interests.'}
         </p>
       </div>
@@ -105,20 +105,20 @@ function AltCareerCard({ career, onNavigate }) {
 function WhyThisCareer({ explanation, skills }) {
   const missingSkills = Array.isArray(skills) ? skills.slice(0, 4) : [];
   return (
-    <div className="bg-[#1b2234] rounded-2xl p-7 border border-white/5 shadow-lg space-y-6">
+    <div className="bg-surface rounded-2xl p-7 border border-outline-variant/30 shadow-lg space-y-6 transition-colors duration-300">
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
           <Lightbulb size={16} className="text-primary" />
         </div>
-        <h4 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">Why This Career?</h4>
+        <h4 className="text-[11px] font-black text-on-background uppercase tracking-[0.2em]">Why This Career?</h4>
       </div>
-      <p className="text-sm text-[#8b949e] leading-relaxed italic">
+      <p className="text-sm text-on-surface-variant leading-relaxed italic">
         "{explanation || 'Your history of building scalable projects combined with your technical depth creates a rare hybrid profile ideal for this role.'}"
       </p>
 
       {missingSkills.length > 0 && (
         <div>
-          <div className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-3">Skills Gap</div>
+          <div className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-3">Skills Gap</div>
           <div className="flex flex-wrap gap-2">
             {missingSkills.map((skill, i) => (
               <span key={i} className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold flex items-center gap-1.5">
@@ -153,20 +153,20 @@ function LearningRoadmap({ courses }) {
         { step: '03', title: 'Real-World Projects', desc: 'Build a portfolio of production-grade projects.' },
       ];
   return (
-    <div className="bg-[#1b2234] rounded-2xl p-7 border border-white/5 shadow-lg">
+    <div className="bg-surface rounded-2xl p-7 border border-outline-variant/30 shadow-lg transition-colors duration-300">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-8 h-8 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center">
           <Map size={16} className="text-secondary" />
         </div>
-        <h4 className="text-[11px] font-black text-white uppercase tracking-[0.2em]">Learning Roadmap</h4>
+        <h4 className="text-[11px] font-black text-on-background uppercase tracking-[0.2em]">Learning Roadmap</h4>
       </div>
       <div className="space-y-4">
         {items.map((item) => (
           <div key={item.step} className="flex gap-4">
             <div className="text-[10px] font-black text-primary/50 w-6 shrink-0 mt-0.5">{item.step}</div>
             <div>
-              <div className="text-sm font-bold text-white mb-0.5">{item.title}</div>
-              <div className="text-[11px] text-[#8b949e] leading-relaxed">{item.desc}</div>
+              <div className="text-sm font-bold text-on-background mb-0.5">{item.title}</div>
+              <div className="text-[11px] text-on-surface-variant leading-relaxed">{item.desc}</div>
             </div>
           </div>
         ))}
@@ -187,28 +187,28 @@ function NotificationPanel({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-full right-0 mt-3 w-80 md:w-96 bg-[#1b2234] border border-white/10 rounded-2xl shadow-2xl p-2 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
-      <div className="p-4 border-b border-white/5 flex items-center justify-between">
-        <h3 className="text-xs font-black text-white uppercase tracking-widest">Notifications</h3>
-        <button onClick={onClose} className="text-[10px] font-bold text-white/30 hover:text-white uppercase tracking-widest transition-colors">Mark all read</button>
+    <div className="absolute top-full right-0 mt-3 w-80 md:w-96 bg-surface border border-outline-variant/30 rounded-2xl shadow-2xl p-2 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+      <div className="p-4 border-b border-outline-variant/20 flex items-center justify-between">
+        <h3 className="text-xs font-black text-on-background uppercase tracking-widest">Notifications</h3>
+        <button onClick={onClose} className="text-[10px] font-bold text-on-surface-variant hover:text-on-background uppercase tracking-widest transition-colors">Mark all read</button>
       </div>
       <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
         {notifications.map((notif) => (
-          <div key={notif.id} className="p-4 hover:bg-white/5 rounded-xl transition-all cursor-pointer group flex gap-4 items-start border-b border-white/5 last:border-0">
-            <div className={`mt-1 w-8 h-8 rounded-lg bg-surface-lowest flex items-center justify-center border border-white/5 shrink-0 ${notif.color}`}>
+          <div key={notif.id} className="p-4 hover:bg-outline-variant/10 rounded-xl transition-all cursor-pointer group flex gap-4 items-start border-b border-outline-variant/10 last:border-0">
+            <div className={`mt-1 w-8 h-8 rounded-lg bg-surface-lowest flex items-center justify-center border border-outline-variant/20 shrink-0 ${notif.color}`}>
               <notif.icon size={14} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2 mb-1">
-                <h4 className="text-xs font-bold text-white truncate">{notif.title}</h4>
-                <span className="text-[9px] font-bold text-white/20 whitespace-nowrap">{notif.time}</span>
+                <h4 className="text-xs font-bold text-on-background truncate">{notif.title}</h4>
+                <span className="text-[9px] font-bold text-on-surface-variant whitespace-nowrap">{notif.time}</span>
               </div>
-              <p className="text-[11px] text-[#8b949e] leading-relaxed line-clamp-2">{notif.message}</p>
+              <p className="text-[11px] text-on-surface-variant leading-relaxed line-clamp-2">{notif.message}</p>
             </div>
           </div>
         ))}
       </div>
-      <div className="p-3 text-center border-t border-white/5">
+      <div className="p-3 text-center border-t border-outline-variant/20">
         <button className="text-[10px] font-black text-primary uppercase tracking-widest hover:underline">View All Notifications</button>
       </div>
     </div>
@@ -229,14 +229,14 @@ function DashboardContent() {
 
   if (!predictionData) {
     return (
-      <div className="flex h-screen bg-[#0b1326] overflow-hidden">
+      <div className="flex h-screen bg-background transition-colors duration-300 overflow-hidden">
         <Sidebar />
         <div className="flex-1 flex flex-col items-center justify-center p-10">
-          <div className="w-20 h-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 shadow-2xl">
+          <div className="w-20 h-20 rounded-3xl bg-outline-variant/10 border border-outline-variant/30 flex items-center justify-center mb-8 shadow-2xl">
             <Sparkles className="w-9 h-9 text-primary" />
           </div>
-          <h2 className="text-3xl font-black text-white mb-3">Start Your Career Analysis</h2>
-          <p className="text-[#8b949e] mb-10 max-w-sm text-center text-sm leading-relaxed">
+          <h2 className="text-3xl font-black text-on-background mb-3">Start Your Career Analysis</h2>
+          <p className="text-on-surface-variant mb-10 max-w-sm text-center text-sm leading-relaxed">
             Fill in your profile to get AI-powered career recommendations tailored to your skills and background.
           </p>
           <button
@@ -251,14 +251,14 @@ function DashboardContent() {
   }
 
   return (
-    <div className="flex h-screen bg-[#0b1326] overflow-hidden">
+    <div className="flex h-screen bg-background transition-colors duration-300 overflow-hidden">
       <Sidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar">
 
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-50 h-20 px-10 flex items-center justify-between border-b border-white/5 bg-[#0b1326]">
+        <header className="sticky top-0 z-50 h-20 px-10 flex items-center justify-between border-b border-outline-variant/20 bg-background/80 backdrop-blur-md">
           <div />
 
           <div className="flex items-center gap-5">
@@ -268,9 +268,9 @@ function DashboardContent() {
                   setNotifOpen(!notifOpen);
                   setProfileOpen(false);
                 }}
-                className="w-9 h-9 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center relative cursor-pointer hover:border-white/20 transition-all"
+                className="w-9 h-9 rounded-xl bg-outline-variant/10 border border-outline-variant/20 flex items-center justify-center relative cursor-pointer hover:border-outline-variant/40 transition-all"
               >
-                <Bell size={16} className={`transition-colors ${notifOpen ? 'text-primary' : 'text-white/40'}`} />
+                <Bell size={16} className={`transition-colors ${notifOpen ? 'text-primary' : 'text-on-surface-variant'}`} />
                 <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_8px_rgba(192,193,255,0.8)]" />
               </div>
               <NotificationPanel isOpen={notifOpen} onClose={() => setNotifOpen(false)} />
@@ -282,23 +282,23 @@ function DashboardContent() {
                   setProfileOpen(!profileOpen);
                   setNotifOpen(false);
                 }}
-                className="flex items-center gap-3 border-l border-white/10 pl-5 group"
+                className="flex items-center gap-3 border-l border-outline-variant/20 pl-5 group"
               >
                 <div className="text-right">
-                  <div className="text-[10px] font-black text-white uppercase tracking-widest">{user?.name || 'User'}</div>
+                  <div className="text-[10px] font-black text-on-background uppercase tracking-widest">{user?.name || 'User'}</div>
                 </div>
                 <img
                   src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name}`}
-                  className="w-10 h-10 rounded-full border border-white/10 bg-surface-lowest group-hover:border-primary/40 transition-all"
+                  className="w-10 h-10 rounded-full border border-outline-variant/20 bg-surface-lowest group-hover:border-primary/40 transition-all"
                   alt="avatar"
                 />
               </button>
 
               {profileOpen && (
-                <div className="absolute top-full right-0 mt-3 w-44 bg-[#1b2234] border border-white/10 rounded-2xl shadow-2xl p-2 z-60">
+                <div className="absolute top-full right-0 mt-3 w-44 bg-surface border border-outline-variant/30 rounded-2xl shadow-2xl p-2 z-60">
                   <button
                     onClick={logout}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-white/50 hover:text-red-400 hover:bg-red-500/5 rounded-xl transition-all text-xs font-bold uppercase tracking-widest"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all text-xs font-bold uppercase tracking-widest"
                   >
                     <LogOut size={14} />
                     Logout
@@ -313,8 +313,8 @@ function DashboardContent() {
         <main className="flex-1 p-10 lg:p-12">
           {/* Page Title */}
           <div className="mb-10">
-            <h1 className="text-3xl font-black text-white mb-2">Your Career Match Results</h1>
-            <p className="text-sm text-[#8b949e] max-w-2xl">
+            <h1 className="text-3xl font-black text-on-background mb-2">Your Career Match Results</h1>
+            <p className="text-sm text-on-surface-variant max-w-2xl">
               Our neural engine has synthesized your skills, values, and experience. Here are your high-probability career paths.
             </p>
           </div>
@@ -363,9 +363,9 @@ function DashboardContent() {
         </main>
 
         {/* Footer */}
-        <footer className="px-12 py-6 border-t border-white/5 flex items-center justify-between opacity-30 select-none">
-          <span className="text-[10px] font-logo font-bold text-[#8b949e] uppercase tracking-widest">© 2026 CareerCraft AI</span>
-          <span className="text-[10px] font-bold text-[#8b949e] uppercase tracking-widest">Premium Dashboard</span>
+        <footer className="px-12 py-6 border-t border-outline-variant/20 flex items-center justify-between opacity-50 select-none">
+          <span className="text-[10px] font-logo font-bold text-on-surface-variant uppercase tracking-widest">© 2026 CareerCraft AI</span>
+          <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Premium Dashboard</span>
         </footer>
       </div>
     </div>

@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { PredictionProvider, usePrediction } from './context/PredictionContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import QuizForm from './pages/QuizForm';
@@ -15,19 +17,17 @@ import CareerRoadmap from './pages/CareerRoadmap';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 
-import { PredictionProvider, usePrediction } from './context/PredictionContext';
-
 // Loading spinner for route transitions
 function RouteLoadingSpinner({ message }) {
   return (
-    <div className="flex-1 flex items-center justify-center bg-[#111624] min-h-screen">
+    <div className="flex-1 flex items-center justify-center bg-background min-h-screen">
       <div className="flex flex-col items-center gap-6">
         <div className="relative w-16 h-16">
           <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-pulse" />
           <div className="absolute inset-0 rounded-full border-t-4 border-primary animate-spin" />
         </div>
         <div className="text-center">
-          <h3 className="text-lg font-display font-bold text-white mb-2">{message || 'Loading...'}</h3>
+          <h3 className="text-lg font-display font-bold text-on-background mb-2">{message || 'Loading...'}</h3>
           <p className="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Please wait</p>
         </div>
       </div>
@@ -87,12 +87,12 @@ function AdminRoute({ children }) {
 
 function AppContent() {
   const location = useLocation();
-  const appRoutes = ['/dashboard', '/history', '/settings', '/admin', '/market', '/resume', '/roadmap'];
-  const isAppView = appRoutes.includes(location.pathname);
+  const hideNavbarRoutes = ['/dashboard', '/history', '/settings', '/admin', '/market', '/resume', '/roadmap', '/login', '/signup', '/form'];
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-background text-on-background font-body selection:bg-primary-container selection:text-background flex flex-col">
-      {!isAppView && <Navbar />}
+      {!shouldHideNavbar && <Navbar />}
       <main className="w-full flex-grow flex flex-col">
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -183,11 +183,13 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <PredictionProvider>
-          <AppContent />
-        </PredictionProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <PredictionProvider>
+            <AppContent />
+          </PredictionProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   );
 }

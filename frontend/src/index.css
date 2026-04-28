@@ -8,16 +8,16 @@
   --color-secondary: #a855f7;
   --color-tertiary: #06b6d4;
   
-  --color-background: #0b1326;
-  --color-surface-lowest: #060e20;
-  --color-surface-low: #131b2e;
-  --color-surface: #171f33;
-  --color-surface-high: #222a3d;
-  --color-surface-highest: #2d3449;
+  --color-background: var(--theme-bg);
+  --color-surface-lowest: var(--theme-surface-lowest);
+  --color-surface-low: var(--theme-surface-low);
+  --color-surface: var(--theme-surface);
+  --color-surface-high: var(--theme-surface-high);
+  --color-surface-highest: var(--theme-surface-highest);
 
-  --color-on-background: #dae2fd;
-  --color-on-surface-variant: #c7c4d7;
-  --color-outline-variant: #464554;
+  --color-on-background: var(--theme-text);
+  --color-on-surface-variant: var(--theme-text-variant);
+  --color-outline-variant: var(--theme-outline);
 
   /* Status Colors */
   --color-beginner: #f97316;
@@ -36,6 +36,30 @@
 }
 
 @layer base {
+  :root {
+    --theme-bg: #FCF8FF;
+    --theme-surface-lowest: #ffffff;
+    --theme-surface-low: #f8fafc;
+    --theme-surface: #ffffff;
+    --theme-surface-high: #f1f5f9;
+    --theme-surface-highest: #e2e8f0;
+    --theme-text: #0f172a;
+    --theme-text-variant: #475569;
+    --theme-outline: #cbd5e1;
+  }
+  
+  .dark {
+    --theme-bg: #0b1326;
+    --theme-surface-lowest: #060e20;
+    --theme-surface-low: #131b2e;
+    --theme-surface: #171f33;
+    --theme-surface-high: #222a3d;
+    --theme-surface-highest: #2d3449;
+    --theme-text: #dae2fd;
+    --theme-text-variant: #c7c4d7;
+    --theme-outline: #464554;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-on-background);
@@ -43,6 +67,7 @@
     margin: 0;
     line-height: normal;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 

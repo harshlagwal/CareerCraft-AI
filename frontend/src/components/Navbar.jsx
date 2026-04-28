@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { User } from 'lucide-react';
+import { User, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar() {
   const location = useLocation();
   const { isAuthenticated, user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const navLinks = isAuthenticated ? [
     { name: 'Analyze Skills', path: '/form' },
@@ -14,54 +16,69 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-background/20 backdrop-blur-md border-b border-white/5">
-        <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 transition-all duration-300 bg-surface/80 backdrop-blur-xl border border-outline-variant/30 rounded-full shadow-lg">
+        <div className="flex items-center justify-between px-6 py-3 w-full">
+          {/* Logo */}
           <Link to="/" className="flex items-center group">
-            <span className="text-xl font-logo font-black tracking-tighter text-white flex items-center gap-1">
-              CAREERCRAFT <span className="text-primary group-hover:text-tertiary transition-colors">AI</span>
+            <span className="text-xl font-logo font-black tracking-widest flex items-center">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">CAREERCRAFT</span> 
+              <span className="text-tertiary group-hover:text-tertiary/80 transition-colors ml-1">AI</span>
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-10">
+          {/* Center Links */}
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`relative text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:tracking-[0.3em] ${
-                    isActive ? 'text-white' : 'text-white/40 hover:text-white'
+                  className={`relative text-sm font-semibold transition-all ${
+                    isActive ? 'text-primary' : 'text-on-surface-variant hover:text-on-background'
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <motion.span 
-                      layoutId="nav-underline"
-                      className="absolute -bottom-2 left-0 w-full h-[2px] bg-primary"
-                    />
-                  )}
                 </Link>
               );
             })}
           </div>
 
-          <div className="flex items-center gap-6">
+          {/* Right Side Buttons */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-surface-high transition-colors"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? (
+                <Sun size={20} className="text-on-surface-variant hover:text-on-background" />
+              ) : (
+                <Moon size={20} className="text-on-surface-variant hover:text-on-background" />
+              )}
+            </button>
+
             {!isAuthenticated ? (
-              <Link to="/signup">
-                <button className="px-5 py-2 rounded-full bg-white text-background text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                  Get Started
-                </button>
-              </Link>
+              <>
+                <Link to="/login" className="text-sm font-semibold text-on-surface-variant hover:text-on-background transition-colors hidden sm:block">
+                  Login
+                </Link>
+                <Link to="/signup">
+                  <button className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white text-sm font-semibold hover:opacity-90 transition-all transform hover:-translate-y-0.5 shadow-md shadow-primary/25">
+                    Get Started
+                  </button>
+                </Link>
+              </>
             ) : (
               <div className="flex items-center gap-4">
-                <button onClick={logout} className="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-400 transition-colors">
+                <button onClick={logout} className="text-sm font-semibold text-on-surface-variant hover:text-red-500 transition-colors">
                   Logout
                 </button>
-                <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 ring-2 ring-primary/20">
+                <div className="w-9 h-9 rounded-full overflow-hidden border border-outline-variant/20 ring-2 ring-primary/20 shadow-sm">
                   <img 
                     src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'Felix'}`} 
                     alt="User Avatar" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover bg-surface-low"
                   />
                 </div>
               </div>
